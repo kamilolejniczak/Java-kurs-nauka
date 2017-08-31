@@ -1,0 +1,21 @@
+package app.model;
+
+
+public abstract class Gracz {
+
+	protected int points = 0;
+	protected final Mapa map;
+
+	protected Gracz(Mapa map) {
+		this.map = map;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public Mapa getMap() {
+		return map;
+	}
+
+}

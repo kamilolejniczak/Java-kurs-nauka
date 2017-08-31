@@ -1,0 +1,23 @@
+package app.model;
+
+public class Ja extends Gracz {
+
+
+	public Ja(Mapa mapa) {
+		super(mapa);
+	}
+
+	// trafienie przeciwnika z koordynatami oraz stan po trafieniu
+	public Pole trafieniePrzeciwnika(XY xy, Gracz przeciwnik) {
+		Pole przeciwnikaPole = przeciwnik.getMapa().getPole(xy);
+
+		if (przeciwnikaPole.getStan() == Stan.STATEKPRZECIWNIKA) {
+			przeciwnikaPole.setStan(Stan.TRAFIENIEPRZECIWNIKA);
+			punkty++;
+		} else {
+			przeciwnikaPole.setStan(Stan.PUDLO);
+		}
+		return przeciwnik.getMapa().getPole(xy);
+	}
+
+}

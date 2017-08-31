@@ -1,0 +1,47 @@
+package app.model;
+
+
+import java.util.Arrays;
+
+public class Mapa {
+	private final Pole[] pola = new Pole[100];
+	private Statek[] statki = new Statek[10];
+
+	// tworzenie mapy z polami
+	public Mapa(Stan stan) {
+		for (int i = 0; i < pola.length; i++) {
+			pola[i] = new Pole(new XY(i % 10, i / 10), stan);
+		}
+	}
+
+	// zmiana stanu pól gdzie umieszczamy statek
+	public void setStatek(Statek statek, int i, Stan stan) {
+		statki[i] = statek;
+		int length = statek.getHp();
+		if (length == 1) {
+			pola[statek.getXY(0).getY() + statek.getXY(0).getX()].setStan(stan);
+		}
+	}
+
+	public Pole getPole(XY xy) {
+		int x = xy.getX();
+		int y = xy.getY();
+		return pola[x + y];
+	}
+
+	public Pole getPole(int x, int y) {
+		return pola[x + y];
+	}
+
+	public void setPoleStan(XY xy, Stan stan) {
+		int x = xy.getX();
+		int y = xy.getY();
+		pola[y + x].setStan(stan);
+	}
+
+	@Override
+	public String toString() {
+		return "Mapa [pola=" + Arrays.toString(pola) + "]";
+	}
+
+}

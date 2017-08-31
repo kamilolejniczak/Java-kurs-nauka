@@ -1,0 +1,133 @@
+package app.model;
+
+import java.util.Random;
+
+public class Ja extends Gracz {
+	
+	Random rand = null;
+
+	
+	public Statek[] wstawiStatek() {
+		// pierwszy statek
+		Statek statek1 = null;
+		Integer x1 = rand.nextInt(10);
+		Integer y1 = rand.nextInt(10);
+		XY xy1 = new XY(x1, y1);
+		// drugi statek
+		Statek statek2 = null;
+		int x2 = rand.nextInt(10);
+		int y2 = rand.nextInt(10);
+		XY xy2 = new XY(x2, y2);
+		Statek statek3 = null;
+		int x3 = rand.nextInt(10);
+		int y3 = rand.nextInt(10);
+		XY xy3 = new XY(x3, y3);
+		Statek statek4 = null;
+		int x4 = rand.nextInt(10);
+		int y4 = rand.nextInt(10);
+		XY xy4 = new XY(x4, y4);
+		Statek statek5 = null;
+		int x5 = rand.nextInt(10);
+		int y5 = rand.nextInt(10);
+		XY xy5 = new XY(x5, y5);
+		Statek statek6 = null;
+		int x6 = rand.nextInt(10);
+		int y6 = rand.nextInt(10);
+		XY xy6 = new XY(x6, y6);
+		Statek statek7 = null;
+		int x7 = rand.nextInt(10);
+		int y7 = rand.nextInt(10);
+		XY xy7 = new XY(x7, y7);
+		Statek statek8 = null;
+		int x8 = rand.nextInt(10);
+		int y8 = rand.nextInt(10);
+		XY xy8 = new XY(x8, y8);
+		Statek statek9 = null;
+		int x9 = rand.nextInt(10);
+		int y9 = rand.nextInt(10);
+		XY xy9 = new XY(x9, y9);
+		Statek statek10 = null;
+		int x10 = rand.nextInt(10);
+		int y10 = rand.nextInt(10);
+		XY xy10 = new XY(x10, y10);
+
+		while (true) {
+			if ((xy2.equals(xy1)) || (xy3.equals(xy1)) || (xy4.equals(xy1)) || (xy5.equals(xy1))
+					|| (xy6.equals(xy1)) || (xy7.equals(xy1)) || (xy8.equals(xy1))
+					|| (xy9.equals(xy1)) || (xy10.equals(xy1)) 
+					|| (xy2.equals(xy3)) || (xy2.equals(xy4)) || (xy2.equals(xy5))
+					|| (xy2.equals(xy6)) || (xy2.equals(xy7)) || (xy2.equals(xy8))
+					|| (xy2.equals(xy9)) || (xy2.equals(xy10)) 
+					|| (xy3.equals(xy4)) || (xy3.equals(xy5)) || (xy3.equals(xy6)) 
+					|| (xy3.equals(xy7)) || (xy3.equals(xy8)) || (xy3.equals(xy9)) 
+					|| (xy3.equals(xy10))
+					|| (xy4.equals(xy5)) || (xy4.equals(xy6)) || (xy4.equals(xy7)) 
+					|| (xy4.equals(xy8)) || (xy4.equals(xy9)) || (xy4.equals(xy10)) 
+					|| (xy5.equals(xy6)) || (xy5.equals(xy7)) || (xy5.equals(xy8)) 
+					|| (xy5.equals(xy9)) || (xy5.equals(xy10)) 
+					|| (xy6.equals(xy7)) || (xy6.equals(xy8)) || (xy6.equals(xy9))
+					|| (xy6.equals(xy10)) 
+					|| (xy7.equals(xy8)) || (xy7.equals(xy9)) || (xy7.equals(xy10)) 
+					|| (xy8.equals(xy9)) || (xy8.equals(xy10)) 
+					|| (xy9.equals(xy10))){
+				continue;
+			}else{
+				break;
+		}
+		}
+		statek1 = new Statek(xy1);
+		statek2 = new Statek(xy2);
+		statek3 = new Statek(xy3);
+		statek4 = new Statek(xy4);
+		statek5 = new Statek(xy5);
+		statek6 = new Statek(xy6);
+		statek7 = new Statek(xy7);
+		statek8 = new Statek(xy8);
+		statek9 = new Statek(xy9);
+		statek10 = new Statek(xy10);
+
+		System.out.println(statek1);
+		System.out.println(statek2);
+		System.out.println(statek3);
+		System.out.println(statek4);
+		System.out.println(statek5);
+		System.out.println(statek6);
+		System.out.println(statek7);
+		System.out.println(statek8);
+		System.out.println(statek9);
+		System.out.println(statek10);
+
+		mapa.setStatek(statek1, 1, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek2, 2, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek3, 3, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek4, 4, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek5, 5, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek6, 6, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek7, 7, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek8, 8, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek9, 9, Stan.STATEKPRZECIWNIKA);
+		mapa.setStatek(statek10, 10, Stan.STATEKPRZECIWNIKA);
+
+		return new Statek[] {statek1, statek2, statek3, statek4, statek5, statek6, statek7, statek8, statek9, statek10 };
+	}
+	
+	public Ja(Mapa mapa) {
+		super(mapa);
+	}
+
+	// trafienie przeciwnika z koordynatami oraz stan po trafieniu
+	public Pole trafieniePrzeciwnika(XY xy, Gracz przeciwnik) {
+		Pole przeciwnikaPole = przeciwnik.getMapa().getPole(xy);
+
+		if (przeciwnikaPole.getStan() == Stan.STATEKPRZECIWNIKA) {
+			przeciwnikaPole.setStan(Stan.TRAFIENIEPRZECIWNIKA);
+			System.out.println("trafiony");
+			punkty++;
+		} else {
+			przeciwnikaPole.setStan(Stan.PUDLO);
+			System.out.println("Pud³o");
+		}
+		return przeciwnik.getMapa().getPole(xy);
+	}
+
+}

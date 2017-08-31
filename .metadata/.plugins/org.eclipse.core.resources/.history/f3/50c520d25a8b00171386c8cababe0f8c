@@ -1,0 +1,21 @@
+package app.model;
+
+
+public abstract class Ja {
+
+	protected int points = 0;
+	protected final Map map;
+
+	protected Ja(Map map) {
+		this.map = map;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+}

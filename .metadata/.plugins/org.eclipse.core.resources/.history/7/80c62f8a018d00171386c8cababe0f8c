@@ -1,0 +1,61 @@
+package app.model;
+
+
+import java.util.Arrays;
+
+public class Statek {
+
+	private int orzel = 0;
+	private XY[] xy;
+
+	
+	public Statek() {}
+
+	public Statek(int orzel, XY[] xy) {
+		super();
+		this.orzel = orzel;
+		this.xy = xy;
+	}
+
+	public Statek(XY xy1) {
+		this.orzel = 1;
+		xy = new XY[1];
+		xy[0] = xy1;
+		
+	}
+
+	public XY getXY(int i) {
+		return xy[i];
+	}
+
+	public int getOrzel() {
+		return orzel;
+	}
+
+	public void setOrzel(int orzel) {
+		this.orzel = orzel;
+	}
+
+	@Override
+	public String toString() {
+		return "Statek [orzel=" + orzel + ", xy=" + Arrays.toString(xy) + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Statek)) {
+			return false;
+		}
+		Statek other = (Statek) obj;
+		if (!Arrays.equals(xy, other.xy)) {
+			return false;
+		}
+		return true;
+	}
+}

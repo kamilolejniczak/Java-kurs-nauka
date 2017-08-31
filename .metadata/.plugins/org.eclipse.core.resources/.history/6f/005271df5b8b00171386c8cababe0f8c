@@ -1,0 +1,95 @@
+package app.model;
+
+public class Gra {
+
+	private Ja me;
+	private Przeciwnik enemy;
+	private Mapa myMap;
+	private Mapa enemyMap;
+
+	public Gracz getMe() {
+		return me;
+	}
+
+	public void setMe(Ja me) {
+		this.me = me;
+	}
+
+	public Gracz getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Przeciwnik enemy) {
+		this.enemy = enemy;
+	}
+
+	public Mapa getMyMap() {
+		return myMap;
+	}
+
+	public void setMyMap(Mapa myMap) {
+		this.myMap = myMap;
+	}
+
+	public Mapa getEnemyMap() {
+		return enemyMap;
+	}
+
+	public void setEnemyMap(Mapa enemyMap) {
+		this.enemyMap = enemyMap;
+	}
+
+	public Gra() {
+		startGame();
+	}
+
+	public void startGame() {
+
+		myMap = new Mapa(State.EMPTY);
+		me = new Ja(myMap);
+
+		XY xy1 = new XY(1, 1);
+		XY xy2 = new XY(1, 2);
+		XY xy3 = new XY(3, 3);
+		XY xy4 = new XY(4, 3);
+		XY xy5 = new XY(4, 6);
+		XY xy6 = new XY(5, 6);
+		XY xy7 = new XY(6, 6);
+
+		Statek ship1 = new Statek(xy1, xy2);
+		Statek ship2 = new Statek(xy3, xy4);
+		Statek ship3 = new Statek(xy5, xy6, xy7);
+
+		myMap.setShip(ship1, 0, State.SHIP);
+		myMap.setShip(ship2, 1, State.SHIP);
+		myMap.setShip(ship3, 2, State.SHIP);
+
+		enemyMap = new Mapa(State.ENEMYEMPTY);
+		enemy = new Przeciwnik(enemyMap);
+
+		enemy.drawShip();
+	}
+
+	// return fields which were hit by me and enemy,
+	//first field is enemy's field and second is mine
+	public Pole[] nextRound(XY xy) {
+		Pole[] fields = new Pole[2];
+
+		fields[0] = me.hitEnemy(xy, enemy);
+
+		State afterMyShot = fields[0].getState();
+
+		if (afterMyShot == State.ENEMYHIT) {
+			System.out.println("I have points: " + me.getPoints());
+		}
+
+		fields[1] = enemy.hitMe(me);
+
+		State afterEnemyShot = fields[1].getState();
+
+		if (afterEnemyShot == State.HIT) {
+			System.out.println("Enemy have points: " + enemy.getPoints());
+		}
+		return fields;
+	}
+}

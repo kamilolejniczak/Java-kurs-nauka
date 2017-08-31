@@ -1,0 +1,111 @@
+package app.model;
+
+public class Gra {
+
+	private Ja ja;
+	private Przeciwnik przeciwnik;
+	private Mapa mojaMapa;
+	private Mapa przeciwnikaMapa;
+
+	
+	public Ja getJa() {
+		return ja;
+	}
+
+	public void setJa(Ja ja) {
+		this.ja = ja;
+	}
+
+	public Przeciwnik getPrzeciwnik() {
+		return przeciwnik;
+	}
+
+	public void setPrzeciwnik(Przeciwnik przeciwnik) {
+		this.przeciwnik = przeciwnik;
+	}
+
+	public Mapa getMojaMapa() {
+		return mojaMapa;
+	}
+
+	public void setMojaMapa(Mapa mojaMapa) {
+		this.mojaMapa = mojaMapa;
+	}
+
+	public Mapa getPrzeciwnikaMapa() {
+		return przeciwnikaMapa;
+	}
+
+	public void setPrzeciwnikaMapa(Mapa przeciwnikaMapa) {
+		this.przeciwnikaMapa = przeciwnikaMapa;
+	}
+
+	public Gra() {
+		startGame();
+	}
+
+	public void startGame() {
+
+		mojaMapa = new Mapa(Stan.PUSTY);
+		ja = new Ja(mojaMapa);
+
+		XY xy1 = new XY(1, 1);
+		XY xy2 = new XY(1, 1);
+		XY xy3 = new XY(1, 1);
+		XY xy4 = new XY(1, 1);
+		XY xy5 = new XY(1, 1);
+		XY xy6 = new XY(1, 1);
+		XY xy7 = new XY(1, 1);
+		XY xy8 = new XY(1, 1);
+		XY xy9 = new XY(1, 1);
+		XY xy10 = new XY(1, 1);
+
+		Statek statek1 = new Statek(xy1);
+		Statek statek2 = new Statek(xy2);
+		Statek statek3 = new Statek(xy3);
+		Statek statek4 = new Statek(xy4);
+		Statek statek5 = new Statek(xy5);
+		Statek statek6 = new Statek(xy6);
+		Statek statek7 = new Statek(xy7);
+		Statek statek8 = new Statek(xy8);
+		Statek statek9 = new Statek(xy9);
+		Statek statek10 = new Statek(xy10);
+		
+		mojaMapa.setStatek(statek1, 1, Stan.STATEK);
+		mojaMapa.setStatek(statek2, 2, Stan.STATEK);
+		mojaMapa.setStatek(statek3, 3, Stan.STATEK);
+		mojaMapa.setStatek(statek4, 4, Stan.STATEK);
+		mojaMapa.setStatek(statek5, 5, Stan.STATEK);
+		mojaMapa.setStatek(statek6, 6, Stan.STATEK);
+		mojaMapa.setStatek(statek7, 7, Stan.STATEK);
+		mojaMapa.setStatek(statek8, 8, Stan.STATEK);
+		mojaMapa.setStatek(statek9, 9, Stan.STATEK);
+		mojaMapa.setStatek(statek10, 10, Stan.STATEK);
+
+		przeciwnikaMapa = new Mapa(Stan.PUSTYPRZECIWNIKA);
+		przeciwnik = new Przeciwnik(przeciwnikaMapa);
+
+		przeciwnik.wstawStatek();
+	}
+
+	public Pole[] nextRound(XY xy) {
+		Pole[] pola = new Pole[1];
+
+		pola[0] = ja.trafieniePrzeciwnika(xy, przeciwnik);
+
+		Stan poMoimStrzale = pola[0].getStan();
+
+		if (poMoimStrzale == Stan.TRAFIENIEPRZECIWNIKA) {
+			System.out.println("Moje punkty: " + ja.getPunkty());
+		}
+
+		pola[1] = przeciwnik.trafilMnie(ja);
+
+		Stan poStrzalePrzeciwnika = pola[1].getStan();
+
+		if (poStrzalePrzeciwnika == Stan.TRAFIENIE) {
+			System.out.println("Punkty przeciwnika: " + przeciwnik.getPunkty());
+		}
+		return pola;
+	}
+}

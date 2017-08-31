@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="miSave" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+                  <MenuItem fx:id="miClose" mnemonicParsing="false" onAction="#close" text="Zamknij" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextField fx:id="tf" layoutY="27.0" prefHeight="25.0" prefWidth="600.0" promptText="Podaj nazwę pliku" />
+      <Button fx:id="btnW" alignment="CENTER" contentDisplay="CENTER" layoutY="374.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#clear" prefHeight="25.0" prefWidth="600.0" text="Wyczyść zawartość" textFill="#1b070799" />
+      <TextArea fx:id="ta" layoutX="1.0" layoutY="52.0" prefHeight="293.0" prefWidth="600.0" promptText="Wpisz tekst" />
+      <HBox layoutY="343.0" prefHeight="31.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btnLC" alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#lowerCase" prefHeight="36.0" prefWidth="300.0" text="Zamień wszystkie litery na Małe" />
+            <Button fx:id="btnUC" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#upperCase" prefHeight="37.0" prefWidth="300.0" text="Zamień wszystkie litery na Duże" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

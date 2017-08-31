@@ -1,0 +1,24 @@
+package app.model;
+
+public class Ja extends Gracz {
+
+
+	public Ja(Mapa map) {
+		super(map);
+	}
+
+	// hit enemy's field with given coordinates and
+	// return state of this field after hit
+	public Pole hitEnemy(XY xy, Gracz enemy) {
+		Pole enemyField = enemy.getMap().getField(xy);
+
+		if (enemyField.getState() == State.ENEMYSHIP) {
+			enemyField.setState(State.ENEMYHIT);
+			points++;
+		} else {
+			enemyField.setState(State.MISSED);
+		}
+		return enemy.getMap().getField(xy);
+	}
+
+}

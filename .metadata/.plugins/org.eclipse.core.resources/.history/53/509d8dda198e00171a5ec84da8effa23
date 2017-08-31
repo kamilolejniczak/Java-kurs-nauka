@@ -1,0 +1,81 @@
+package app.model;
+
+public class Gra{
+
+	private Ja ja;
+	private Przeciwnik przeciwnik;
+	private Mapa mojaMapa;
+	private Mapa przeciwnikaMapa;
+
+	
+	public Ja getJa() {
+		return ja;
+	}
+
+	public void setJa(Ja ja) {
+		this.ja = ja;
+	}
+
+	public Przeciwnik getPrzeciwnik() {
+		return przeciwnik;
+	}
+
+	public void setPrzeciwnik(Przeciwnik przeciwnik) {
+		this.przeciwnik = przeciwnik;
+	}
+
+	public Mapa getMojaMapa() {
+		return mojaMapa;
+	}
+
+	public void setMojaMapa(Mapa mojaMapa) {
+		this.mojaMapa = mojaMapa;
+	}
+
+	public Mapa getPrzeciwnikaMapa() {
+		return przeciwnikaMapa;
+	}
+
+	public void setPrzeciwnikaMapa(Mapa przeciwnikaMapa) {
+		this.przeciwnikaMapa = przeciwnikaMapa;
+	}
+
+	public Gra() {
+		startGame();
+	}
+
+	public void startGame() {
+
+		mojaMapa = new Mapa(Stan.PUSTY);
+		ja = new Ja(mojaMapa);
+		
+		ja.wstawiStatek();
+		
+
+		przeciwnikaMapa = new Mapa(Stan.PUSTYPRZECIWNIKA);
+		przeciwnik = new Przeciwnik(przeciwnikaMapa);
+		
+		przeciwnik.wstawStatek();
+	}
+
+	public Pole[] nextRound(XY xy) {
+		Pole[] pola = new Pole[1];
+
+		pola[0] = ja.trafieniePrzeciwnika(xy, przeciwnik);
+
+		Stan poMoimStrzale = pola[0].getStan();
+
+		if (poMoimStrzale == Stan.TRAFIENIEPRZECIWNIKA) {
+			System.out.println("Moje punkty: " + ja.getPunkty());
+		}
+
+		pola[1] = przeciwnik.trafilMnie(ja);
+
+		Stan poStrzalePrzeciwnika = pola[1].getStan();
+
+		if (poStrzalePrzeciwnika == Stan.TRAFIENIE) {
+			System.out.println("Punkty przeciwnika: " + przeciwnik.getPunkty());
+		}
+		return pola;
+	}
+}

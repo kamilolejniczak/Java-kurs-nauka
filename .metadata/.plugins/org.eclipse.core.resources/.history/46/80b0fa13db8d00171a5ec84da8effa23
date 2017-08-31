@@ -1,0 +1,5 @@
+.ship{
+
+	-fx-background-image:url(/app/view/x.png); 
+
+}

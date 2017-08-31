@@ -1,0 +1,7 @@
+.ship{
+
+	-fx-background-color: purple;
+
+	-fx-text-fill: red;
+
+}

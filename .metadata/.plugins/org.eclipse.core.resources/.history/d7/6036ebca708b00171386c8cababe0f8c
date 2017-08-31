@@ -1,0 +1,53 @@
+package app.model;
+
+
+import java.util.Arrays;
+
+public class Statek {
+
+	private int hp = 0;
+	private XY[] xy;
+
+
+	public Statek(XY xy1) {
+		this.hp = 1;
+		xy = new XY[1];
+		xy[0] = xy1;
+		
+	}
+
+	public XY getXY(int i) {
+		return xy[i];
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	@Override
+	public String toString() {
+		return "Ship [hp=" + hp + ", xy=" + Arrays.toString(xy) + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Statek)) {
+			return false;
+		}
+		Statek other = (Statek) obj;
+		if (!Arrays.equals(xy, other.xy)) {
+			return false;
+		}
+		return true;
+	}
+}

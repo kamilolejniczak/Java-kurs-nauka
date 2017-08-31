@@ -1,0 +1,54 @@
+package app.model;
+
+
+public class Pole {
+
+	private final XY XY;
+	private Stan state;
+
+	public Pole(XY xy, Stan state) {
+		this.XY = xy;
+		this.state = state;
+	}
+
+	public Stan getState() {
+		return state;
+	}
+
+	public void setState(Stan state) {
+		this.state = state;
+	}
+
+	public XY getXY() {
+		return XY;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Pole)) {
+			return false;
+		}
+		Pole other = (Pole) obj;
+		if (XY == null) {
+			if (other.XY != null) {
+				return false;
+			}
+		} else if (!XY.equals(other.XY)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Field [XY=" + XY + ", state=" + state + "]";
+	}
+
+	
+}

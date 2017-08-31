@@ -1,0 +1,165 @@
+package app.controller;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
+import app.model.Pole;
+import app.model.Gra;
+import app.model.State;
+import app.model.XY;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class StatkiController implements Initializable{
+    @FXML
+    private GridPane t1;
+    @FXML
+    private GridPane t2;
+    @FXML
+    private TextField imie;
+    @FXML
+    private Label trafiony;
+    @FXML
+    private Label trafiony_zat;
+    @FXML
+    void closeAction(ActionEvent event) {
+    	System.exit(0);
+    }
+    String imieG = "";
+    @FXML
+    void imieAction(ActionEvent event) {
+    	imieG = imie.getText();
+    }
+    Gra game = new Gra();
+    Stage stage = null;
+    @FXML
+    void restartGame() {		//start gry
+		game.startGame();
+		// czyszczenie pola przeciwnika
+		List<Node> buttons = t2.getChildren().stream().filter(b -> b instanceof Button)
+				.collect(Collectors.toList());
+
+		for (int y = 0; y <= 10; y++) {
+			for (int x = 0; x < 10; x++) {
+				String xy = "" + x + y;
+				State state = game.getEnemyMap().getField(new XY(x, y)).getState();
+				buttons.stream().filter(b -> ((Button) b).getText().endsWith(xy)).forEach(b -> {
+					b.setId(state.toString());
+					b.setDisable(false);
+				});
+			}
+		}
+
+		// reset my fields
+		List<Node> buttons2 = t1.getChildren().stream().filter(b -> b instanceof Button)
+				.collect(Collectors.toList());
+
+		for (int y = 0; y <= 10; y++) {
+			for (int x = 0; x <= 10; x++) {
+				String xy = "" + x + y;
+				State state = game.getMyMap().getField(new XY(x, y)).getState();
+				buttons2.stream().filter(b -> ((Button) b).getText().endsWith(xy))
+						.forEach(b -> b.setId(state.toString()));
+			}
+		}
+    }
+		@FXML
+		private void showGameInfo() {
+			if (stage == null) {
+				stage = (Stage) t2.getScene().getWindow();
+			}
+
+	}
+		@FXML
+		private void pushAction(ActionEvent e) {
+			Button button = (Button) e.getSource();
+			Integer number = Integer.parseInt (button.getText());
+			int x = number;
+			int y = number;
+			// first field is enemy's field and second is mine
+			Pole[] fields = game.nextRound(new XY(x, y));
+			setEnemyField(fields[0]);
+			setMyField(fields[1]);
+
+	}
+		private void setMyField(Pole field) {
+			if (field.getState() == State.HIT) {
+				int points = game.getEnemy().getPoints();
+				if (points == 7) {
+					showAnnouncement("YOU LOST\n\n learn how to play!");
+				}
+			}
+
+			XY xy = field.getXY();
+			int x = xy.getX();
+			int y = xy.getY();
+			String buttonNr = "" + x + y;
+			String state = field.getState().toString();
+
+			ObservableList<Node> buttons = t1.getChildren();
+			buttons.stream().filter(b -> b instanceof Button).filter(b -> ((Button) b).getText().endsWith(buttonNr))
+					.forEach(b -> b.setId(state));
+		}
+
+		// set enemy's field which was hit by me
+		private void setEnemyField(Pole field) {
+			if (field.getState() == State.ENEMYHIT) {
+				int points = game.getMe().getPoints();
+				if (points == 7) {
+					showAnnouncement("YOU WON\n\n Congratulation!");
+				}
+			}
+
+			XY xy = field.getXY();
+			int x = xy.getX();
+			int y = xy.getY();
+			String buttonNr = "" + x + y;
+			String state = field.getState().toString();
+
+			ObservableList<Node> buttons = t2.getChildren();
+			buttons.stream().filter(b -> b instanceof Button).filter(b -> ((Button) b).getText().endsWith(buttonNr))
+					.forEach(b -> {
+						b.setId(state);
+						b.setDisable(true);
+					});
+		}
+
+		// show Pop up window with custom text
+		private void showAnnouncement(String message) {
+			if (stage == null) {
+				stage = (Stage) t2.getScene().getWindow();
+			}
+			
+
+			// make enemy's buttons disabled
+			List<Node> buttons = t2.getChildren().stream().filter(b -> b instanceof Button)
+					.collect(Collectors.toList());
+
+			for (int y = 0; y <= 10; y++) {
+				for (int x = 0; x <= 10; x++) {
+					String xy = "" + x + y;
+					buttons.stream()
+					.filter(b -> ((Button) b).getText().endsWith(xy))
+					.forEach(b -> b.setDisable(true));
+				}
+			}
+		}
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+}
+	
+
